@@ -1,7 +1,10 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <router-link to="/" class="logo">
+      <router-link
+        to="/"
+        class="logo"
+      >
         <img
           src="@/assets/img/logo.svg"
           alt="V!U!E! Pizza logo"
@@ -16,15 +19,25 @@
     <div class="header__user">
       <template v-if="user">
         <router-link to="/profile">
-          <img :src="user.avatar" :alt="user.name" width="32" height="32" />
+          <img
+            :src="user.avatar"
+            :alt="user.name"
+            width="32"
+            height="32"
+          />
 
           <span>{{ user.name }}</span>
         </router-link>
-        <a @click.prevent="onLogoutClick" class="header__logout"
+        <a
+          class="header__logout"
+          @click.prevent="onLogoutClick"
           ><span>Выйти</span></a
         >
       </template>
-      <router-link v-else to="/login" class="header__login"
+      <router-link
+        v-else
+        to="/login"
+        class="header__login"
         ><span>Войти</span></router-link
       >
     </div>
@@ -37,10 +50,14 @@ import { calculateOrderPrice } from "@/common/helpers/pizza.helper";
 
 export default {
   name: "AppLayoutHeader",
+
   computed: {
     ...mapState("Auth", ["user"]),
+
     ...mapState("Cart", ["clientPizzas"]),
+
     ...mapState("Cart", ["selectedMisc"]),
+
     totalPrice() {
       return calculateOrderPrice(
         this.clientPizzas,
@@ -49,8 +66,10 @@ export default {
       );
     },
   },
+
   methods: {
     ...mapActions("Auth", ["logout"]),
+
     async onLogoutClick() {
       await this.logout();
       await this.$router.push("/login");

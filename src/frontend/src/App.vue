@@ -12,9 +12,16 @@ import { mapState } from "vuex";
 
 export default {
   name: "App",
+
   components: {
     AppLayout,
   },
+
+  computed: {
+    ...mapState(["loading"]),
+    ...mapState("Auth", ["isAuthenticated"]),
+  },
+
   async created() {
     window.onerror = function (msg, url, line, col, error) {
       console.error(error);
@@ -31,10 +38,6 @@ export default {
     }
 
     await this.$store.dispatch("init");
-  },
-  computed: {
-    ...mapState(["loading"]),
-    ...mapState("Auth", ["isAuthenticated"]),
   },
 };
 </script>

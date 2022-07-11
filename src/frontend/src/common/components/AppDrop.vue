@@ -1,5 +1,8 @@
 <template>
-  <div @drop.stop="onDrop" @dragover.prevent @dragenter.prevent>
+  <div
+    @drop.stop="onDrop"
+    @dragover.prevent
+    @dragenter.prevent>
     <slot />
   </div>
 </template>
@@ -9,6 +12,7 @@ import { DATA_TRANSFER_PAYLOAD } from "@/common/constants";
 
 export default {
   name: "AppDrop",
+
   methods: {
     onDrop({ dataTransfer }) {
       if (!dataTransfer) {

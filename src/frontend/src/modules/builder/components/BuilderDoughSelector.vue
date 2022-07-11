@@ -16,8 +16,8 @@
             :value="type"
             :checked="true"
             class="visually-hidden"
-            @click="selectDough(id)"
             data-test="input"
+            @click="selectDough(id)"
           />
           <b>{{ name }}</b>
           <span>{{ description }}</span>
@@ -33,13 +33,17 @@ import AppSheet from "@/common/components/AppSheet";
 
 export default {
   name: "BuilderDoughSelector",
+
   components: {
     AppSheet,
   },
+
   computed: {
     ...mapGetters("Builder", ["selectedDoughId"]),
+
     ...mapGetters(["dough"]),
   },
+
   methods: {
     ...mapActions("Builder", ["selectDough"]),
   },

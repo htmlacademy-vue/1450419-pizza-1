@@ -16,9 +16,12 @@
 <script>
 import AppLayoutSidebar from "@/layouts/AppLayoutSidebar";
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
+
 export default {
   name: "AppLayoutUser",
+
   components: { AppLayoutHeader, AppLayoutSidebar },
+
   computed: {
     title() {
       return this.$route.meta.title;
@@ -27,4 +30,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.layout__content {
+  padding-top: 22px;
+  padding-right: 2.12%;
+  padding-left: 200px;
+}
+.layout__title {
+  margin-bottom: 27px;
+}
+</style>

@@ -9,8 +9,10 @@
 
 <script>
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
+
 export default {
   name: "AppLayoutMain",
+
   components: {
     AppLayoutHeader,
   },

@@ -1,6 +1,9 @@
 <template>
   <div class="sheet">
-    <AppTitle class="sheet__title" size="small">
+    <AppTitle
+      class="sheet__title"
+      size="small"
+    >
       <slot name="header-title" />
     </AppTitle>
 
@@ -15,6 +18,7 @@ import AppTitle from "@/common/components/AppTitle";
 
 export default {
   name: "AppSheet",
+
   components: {
     AppTitle,
   },

@@ -18,9 +18,11 @@ import BuilderIngredientItem from "@/modules/builder/components/BuilderIngredien
 
 export default {
   name: "BuilderIngredientList",
+
   components: {
     BuilderIngredientItem,
   },
+
   computed: {
     ...mapGetters(["ingredients"]),
   },

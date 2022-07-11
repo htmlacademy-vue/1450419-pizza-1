@@ -1,6 +1,10 @@
 <template>
   <div v-if="orders.length">
-    <OrderItem v-for="{ id } in orders" :key="id" :orderId="id" />
+    <OrderItem
+      v-for="{ id } in orders"
+      :key="id"
+      :order-id="id"
+    />
   </div>
 </template>
 
@@ -10,17 +14,21 @@ import OrderItem from "@/modules/orders/components/OrderItem";
 
 export default {
   name: "Orders",
+
   components: {
     OrderItem,
   },
+
   computed: {
     ...mapState("Orders", ["orders"]),
   },
-  methods: {
-    ...mapActions("Orders", ["fetchOrders"]),
-  },
+
   async created() {
     await this.fetchOrders();
+  },
+
+  methods: {
+    ...mapActions("Orders", ["fetchOrders"]),
   },
 };
 </script>

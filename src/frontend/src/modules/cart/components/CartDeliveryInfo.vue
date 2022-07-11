@@ -6,16 +6,16 @@
 
         <select
           :value="type"
-          @change="$emit('update:type', $event.target.value)"
           name="test"
           class="select"
+          @change="$emit('update:type', $event.target.value)"
         >
           <option
-            v-for="type in filteredOrderType"
-            :key="type.value"
-            :value="type.value"
+            v-for="filterType in filteredOrderType"
+            :key="filterType.value"
+            :value="filterType.value"
           >
-            {{ type.description }}
+            {{ filterType.description }}
           </option>
         </select>
       </label>
@@ -31,16 +31,19 @@
         />
       </label>
 
-      <div v-if="showDeliveryAddress" class="cart-form__address">
+      <div
+        v-if="showDeliveryAddress"
+        class="cart-form__address"
+      >
         <span class="cart-form__label">Новый адрес:</span>
 
         <div class="cart-form__input">
           <label class="input">
             <span>Улица*</span>
             <input
+              ref="street"
               type="text"
               name="street"
-              ref="street"
               :value="this.street"
               @input="$emit('update:street', $event.target.value)"
             />
@@ -51,9 +54,9 @@
           <label class="input">
             <span>Дом*</span>
             <input
+              ref="building"
               type="text"
               name="house"
-              ref="building"
               :value="this.building"
               @input="$emit('update:building', $event.target.value)"
             />
@@ -64,9 +67,9 @@
           <label class="input">
             <span>Квартира</span>
             <input
+              ref="flat"
               type="text"
               name="apartment"
-              ref="flat"
               :value="this.flat"
               @input="$emit('update:flat', $event.target.value)"
             />
@@ -104,23 +107,28 @@ const addressConfig = [
 
 export default {
   name: "CartDeliveryInfo",
+
   props: {
     street: {
       type: String,
       default: "",
     },
+
     building: {
       type: String,
       default: "",
     },
+
     flat: {
       type: String,
       default: "",
     },
+
     phone: {
       type: String,
       default: "",
     },
+
     type: {
       type: String,
       required: true,
@@ -128,11 +136,13 @@ export default {
   },
   computed: {
     ...mapState("Auth", ["isAuthenticated"]),
+
     filteredOrderType() {
       return Object.values(addressConfig).filter((type) => {
         return !this.isAuthenticated ? !type.auth : true;
       });
     },
+
     showDeliveryAddress() {
       return addressConfig.find((type) => type.value === this.type).needAddress;
     },
@@ -140,4 +150,47 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+@import "~@/assets/scss/mixins/mixins.scss";
+.cart-form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cart-form__select {
+  display: flex;
+  align-items: center;
+
+  margin-right: auto;
+
+  span {
+    margin-right: 16px;
+  }
+}
+
+.cart-form__label {
+  @include b-s16-h19;
+
+  white-space: nowrap;
+}
+
+.cart-form__address {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  margin-top: 20px;
+}
+
+.cart-form__input {
+  flex-grow: 1;
+
+  margin-bottom: 20px;
+  margin-left: 16px;
+
+  &--small {
+    max-width: 120px;
+  }
+}
+</style>

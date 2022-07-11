@@ -26,31 +26,38 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "AppPizzaItem",
+
   props: {
     name: {
       type: String,
       required: true,
     },
+
     sizeId: {
       type: Number,
       required: true,
     },
+
     sauceId: {
       type: Number,
       required: true,
     },
+
     doughId: {
       type: Number,
       required: true,
     },
+
     ingredients: {
       type: Array,
       required: true,
       validate: (value) => value.length,
     },
   },
+
   computed: {
     ...mapGetters(["sizeEnum", "sauceEnum", "ingredientsEnum"]),
+
     doughInfo() {
       const sizeName = this.sizeEnum[this.sizeId].name;
       const doughDescription =
@@ -58,9 +65,11 @@ export default {
 
       return `${sizeName}, ${doughDescription}`;
     },
+
     sauceInfo() {
       return this.sauceEnum[this.sauceId].name;
     },
+
     ingredientsInfo() {
       return this.ingredients
         .map((ing) => this.ingredientsEnum[ing.id].name)

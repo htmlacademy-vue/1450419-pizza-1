@@ -30,13 +30,17 @@ import AppSheet from "@/common/components/AppSheet";
 
 export default {
   name: "BuilderSizeSelector",
+
   components: {
     AppSheet,
   },
+
   computed: {
     ...mapGetters("Builder", ["selectedSizeId"]),
+
     ...mapGetters(["sizes"]),
   },
+
   methods: {
     ...mapActions("Builder", ["selectSize"]),
   },

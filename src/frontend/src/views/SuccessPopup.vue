@@ -1,8 +1,17 @@
 <template>
   <transition name="popup-fade">
-    <div class="modal-backdrop" role="dialog">
-      <div class="popup" ref="popup">
-        <a class="close" @click="$emit('close')">
+    <div
+      class="modal-backdrop"
+      role="dialog"
+    >
+      <div
+        ref="popup"
+        class="popup"
+      >
+        <a
+          class="close"
+          @click="$emit('close')"
+        >
           <span class="visually-hidden">Закрыть попап</span>
         </a>
         <div class="popup__title">
@@ -10,7 +19,12 @@
         </div>
         <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
         <div class="popup__button">
-          <a class="button" @click="$emit('close')">Отлично, я жду!</a>
+          <a
+            class="button"
+            @click="$emit('close')"
+          >
+            Отлично, я жду!
+          </a>
         </div>
       </div>
     </div>

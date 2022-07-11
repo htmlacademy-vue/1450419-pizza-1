@@ -24,8 +24,10 @@
 </template>
 
 <script>
+
 export default {
   name: "OrderPizzaItem",
+
   props: {
     pizza: {
       type: Object,

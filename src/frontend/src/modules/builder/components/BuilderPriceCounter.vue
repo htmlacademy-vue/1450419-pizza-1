@@ -5,6 +5,7 @@
 <script>
 export default {
   name: "BuilderPriceCounter",
+
   props: {
     totalPrice: {
       type: [Number, String],

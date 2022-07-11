@@ -17,6 +17,7 @@ import AppSheet from "@/common/components/AppSheet";
 
 export default {
   name: "BuilderIngredientsSelector",
+
   components: { AppSheet, BuilderSauceSelector, BuilderIngredientList },
 };
 </script>

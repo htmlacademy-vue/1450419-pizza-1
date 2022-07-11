@@ -1,6 +1,9 @@
 <template>
   <ul class="order__additional">
-    <li v-for="product in orderedProducts" :key="product.id">
+    <li
+      v-for="product in orderedProducts"
+      :key="product.id"
+    >
       <img
         :src="require(`@/assets/img/${product.image}`)"
         width="20"
@@ -20,14 +23,17 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "OrderExtraProducts",
+
   props: {
     products: {
       type: Array,
       default: () => [],
     },
   },
+
   computed: {
     ...mapGetters(["miscEnum"]),
+
     orderedProducts() {
       return this.products.map(({ id, count }) => ({
         ...this.miscEnum[id],

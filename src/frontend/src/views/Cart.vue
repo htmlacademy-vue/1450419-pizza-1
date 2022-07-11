@@ -1,13 +1,23 @@
 <template>
-  <form action="#" method="post" class="layout-form">
-    <SuccessPopup v-show="isSuccessPopupVisible" @close="closeSuccessModal" />
+  <form
+    action="#"
+    method="post"
+    class="layout-form"
+  >
+    <SuccessPopup
+      v-show="isSuccessPopupVisible"
+      @close="closeSuccessModal"
+    />
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
           <h1 class="title title--big">Корзина</h1>
         </div>
 
-        <div v-if="!hasClientPizzas" class="sheet cart__empty">
+        <div
+          v-if="!hasClientPizzas"
+          class="sheet cart__empty"
+        >
           <p>В корзине нет ни одного товара</p>
         </div>
 
@@ -15,7 +25,7 @@
           <CartList />
 
           <div class="cart__additional">
-            <CartAdditionalList />
+            <CartAdditional />
           </div>
 
           <CartDeliveryInfo
@@ -28,11 +38,17 @@
         </template>
       </div>
     </main>
-    <section v-if="hasClientPizzas" class="footer">
+    <section
+      v-if="hasClientPizzas"
+      class="footer"
+    >
       <div class="footer__more">
-        <router-link to="/" class="button button--border button--arrow"
-          >Хочу еще одну</router-link
-        >
+        <router-link
+          to="/"
+          class="button button--border button--arrow"
+          >
+          Хочу еще одну
+        </router-link>
       </div>
       <p class="footer__text">
         Перейти к конструктору<br />чтоб собрать ещё одну пиццу
@@ -42,7 +58,11 @@
       </div>
 
       <div class="footer__submit">
-        <button @click.prevent="makeOrder" type="submit" class="button">
+        <button
+          type="submit"
+          class="button"
+          @click.prevent="makeOrder"
+        >
           Оформить заказ
         </button>
       </div>
@@ -52,7 +72,7 @@
 
 <script>
 import CartList from "@/modules/cart/components/CartList";
-import CartAdditionalList from "@/modules/cart/components/CartAdditionalList";
+import CartAdditional from "@/modules/cart/components/CartAdditional";
 import CartDeliveryInfo from "@/modules/cart/components/CartDeliveryInfo";
 import SuccessPopup from "@/views/SuccessPopup";
 import { mapActions, mapGetters, mapState } from "vuex";
@@ -63,10 +83,11 @@ import { validationRules } from "@/common/helpers/validate.helper";
 export default {
   components: {
     CartList,
-    CartAdditionalList,
+    CartAdditional: CartAdditional,
     CartDeliveryInfo,
     SuccessPopup,
   },
+
   data() {
     return {
       address: {
@@ -75,15 +96,22 @@ export default {
         building: "",
         flat: "",
       },
+
       phone: "",
+
       isSuccessPopupVisible: false,
     };
   },
+
   computed: {
     ...mapState("Cart", ["clientPizzas", "selectedMisc"]),
+
     ...mapState("Auth", ["isAuthenticated"]),
+
     ...mapGetters("Cart", ["hasClientPizzas"]),
+
     ...mapGetters("Auth", ["getUserId"]),
+
     totalPrice() {
       return calculateOrderPrice(
         this.clientPizzas,
@@ -92,9 +120,12 @@ export default {
       );
     },
   },
+
   methods: {
     ...mapActions("Orders", ["post"]),
+
     ...mapActions("Cart", ["clearCart"]),
+
     async makeOrder() {
       if (!this.validate()) {
         return;
@@ -109,6 +140,7 @@ export default {
       await this.post(sendData);
       this.isSuccessPopupVisible = true;
     },
+
     //TODO переписать для читаемости
     validate() {
       if (!validationRules.required.rule(this.phone)) {
@@ -123,6 +155,7 @@ export default {
       }
       return true;
     },
+
     closeSuccessModal() {
       this.clearCart();
       this.isAuthenticated
@@ -133,4 +166,60 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.cart__title {
+  margin-bottom: 15px;
+}
+
+.cart__additional {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.cart__empty {
+  padding: 20px 30px;
+}
+.layout-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.footer {
+  display: flex;
+  align-items: center;
+
+  margin-top: auto;
+  padding: 25px 2.12%;
+
+  background-color: rgba($green-500, 0.1);
+}
+
+.footer__more {
+  width: 220px;
+  margin-right: 16px;
+
+  a {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+
+.footer__text {
+  @include l-s11-h13;
+
+  color: rgba($black, 0.5);
+}
+
+.footer__price {
+  @include b-s24-h28;
+
+  margin-right: 12px;
+  margin-left: auto;
+}
+
+.footer__submit {
+  button {
+    padding: 16px 14px;
+  }
+}
+</style>

@@ -14,16 +14,19 @@ import { DATA_TRANSFER_PAYLOAD } from "@/common/constants";
 
 export default {
   name: "AppDrag",
+
   props: {
     transferData: {
       type: Object,
       required: true,
     },
+
     draggable: {
       type: Boolean,
       default: true,
     },
   },
+
   methods: {
     onDrag({ dataTransfer }) {
       dataTransfer.setData(

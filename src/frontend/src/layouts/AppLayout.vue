@@ -1,5 +1,9 @@
 <template>
-  <transition name="router-view" mode="in-out" v-on:after-enter="afterEnter">
+  <transition
+    name="router-view"
+    mode="in-out"
+    @after-enter="afterEnter"
+  >
     <component :is="layout">
       <slot />
     </component>
@@ -11,12 +15,14 @@ const mainLayout = "AppLayoutMain";
 
 export default {
   name: "AppLayout",
+
   computed: {
     layout() {
       const layout = this.$route.meta.layout || mainLayout;
       return () => import(`@/layouts/${layout}.vue`);
     },
   },
+
   methods: {
     afterEnter: () => {
       window.scrollTo(0, 0);

@@ -3,8 +3,8 @@
     <button
       type="button"
       class="counter__button counter__button--minus"
-      @click="degrease"
       :disabled="isMinLimit"
+      @click="degrease"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -32,39 +32,50 @@ import { counterLimit } from "@/common/constants";
 
 export default {
   name: "ItemCounter",
+
   props: {
     counter: {
       type: Number,
       default: 0,
     },
+
     colorTheme: {
       type: String,
+      default: "",
       required: false,
     },
+
     maxCount: {
       type: Number,
+      default: 0,
       required: false,
     },
   },
+
   computed: {
     isMaxLimit() {
       return this.maxCount ? this.counter >= this.maxCount : false;
     },
+
     isMinLimit() {
       return this.counter <= counterLimit.MIN;
     },
+
     themeClass() {
       return this.colorTheme ? `counter__button--${this.colorTheme}` : "";
     },
   },
+
   methods: {
     changeCount(digit) {
       this.$emit("change", digit);
     },
+
     increase() {
       if (this.isMaxLimit) return;
       this.changeCount(this.counter + 1);
     },
+
     degrease() {
       if (this.isMinLimit) return;
       this.changeCount(this.counter - 1);

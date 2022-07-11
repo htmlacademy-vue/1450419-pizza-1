@@ -10,15 +10,19 @@
 
     <div class="order__button">
       <button
-        @click="deleteOrderHandler"
         type="button"
         class="button button--border"
+        @click="deleteOrderHandler"
       >
         Удалить
       </button>
     </div>
     <div class="order__button">
-      <button @click="repeatOrderHandler" type="button" class="button">
+      <button
+        type="button"
+        class="button"
+        @click="repeatOrderHandler"
+      >
         Повторить
       </button>
     </div>
@@ -31,24 +35,30 @@ import { calculateOrderPrice } from "@/common/helpers/pizza.helper";
 
 export default {
   name: "OrderHeader",
+
   props: {
     orderId: {
       type: Number,
       required: true,
     },
   },
+
   computed: {
     ...mapGetters("Orders", ["getOrderById"]),
+
     ...mapGetters(["miscEnum"]),
+
     orderPrice() {
       const order = this.getOrderById(this.orderId);
       return calculateOrderPrice(order.pizzas, order.orderMisc, this.$store);
     },
   },
+
   methods: {
     deleteOrderHandler() {
       this.$emit("delete-order");
     },
+
     repeatOrderHandler() {
       this.$emit("repeat-order");
     },

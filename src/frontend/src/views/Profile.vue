@@ -16,8 +16,14 @@
       />
     </div>
 
-    <div class="layout__address" v-if="isOpenedForm">
-      <ProfileAddressEdit @delete="onFormCloseClick" @save="onSaveClick" />
+    <div
+      v-if="isOpenedForm"
+      class="layout__address"
+    >
+      <ProfileAddressEdit
+        @delete="onFormCloseClick"
+        @save="onSaveClick"
+      />
     </div>
 
     <div class="layout__button">
@@ -40,13 +46,16 @@ import ProfileAddressEdit from "@/modules/profile/components/ProfileAddressEdit"
 
 export default {
   name: "Profile",
+
   components: { ProfileUser, ProfileAddress, ProfileAddressEdit },
+
   data() {
     return {
       isOpenedForm: false,
       editComponentId: null,
     };
   },
+
   computed: {
     ...mapState("Address", ["addresses"]),
     addressData() {
@@ -59,6 +68,11 @@ export default {
       }));
     },
   },
+
+  async created() {
+    await this.fetchAddresses();
+  },
+
   methods: {
     ...mapActions("Address", [
       "fetchAddresses",
@@ -66,19 +80,23 @@ export default {
       "updateAddress",
       "deleteAddress",
     ]),
+
     onAddNewAddressClick() {
       // закроем другие открытые формы редактирования
       this.editComponentId = null;
       this.isOpenedForm = true;
     },
+
     onFormCloseClick() {
       this.isOpenedForm = false;
     },
+
     onEditClick(id) {
       // закроем другие открытые формы редактирования
       this.isOpenedForm = false;
       this.editComponentId = id;
     },
+
     async onSaveClick(payload) {
       if (!payload.id) {
         await this.saveUserAddress(payload);
@@ -88,14 +106,23 @@ export default {
         this.editComponentId = null;
       }
     },
+
     async onDeleteClick(id) {
       await this.deleteAddress(id);
     },
   },
-  async created() {
-    await this.fetchAddresses();
-  },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.layout__button {
+  margin-top: 40px;
+
+  button {
+    padding: 12px 23px;
+  }
+}
+.layout__address {
+  margin-top: 16px;
+}
+</style>

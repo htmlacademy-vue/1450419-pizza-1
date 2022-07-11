@@ -24,10 +24,13 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "BuilderSauceSelector",
+
   computed: {
     ...mapGetters("Builder", ["selectedSauceId"]),
+
     ...mapGetters(["sauces"]),
   },
+
   methods: {
     ...mapActions("Builder", ["selectSauce"]),
   },
